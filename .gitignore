@@ -1,0 +1,28 @@
+# =====================
+# NODE (Frontend)
+# =====================
+frontend/node_modules/
+frontend/build/
+
+# =====================
+# SPRING BOOT (Backend)
+# =====================
+backend/target/
+backend/*.log
+
+# =====================
+# SYSTEM
+# =====================
+.DS_Store
+Thumbs.db
+
+# =====================
+# IDE
+# =====================
+.vscode/
+.idea/
+
+# =====================
+# ENV
+# =====================
+.env
