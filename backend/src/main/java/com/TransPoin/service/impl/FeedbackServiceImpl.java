@@ -71,9 +71,13 @@ public class FeedbackServiceImpl implements FeedbackService {
     }
 
     private FeedbackResponse mapToResponse(Feedback f) {
-        String perjalananInfo = f.getPerjalanan() != null
-                ? f.getPerjalanan().getAsal() + " → " + f.getPerjalanan().getTujuan()
-                : null;
+        String perjalananInfo = null;
+        if (f.getPerjalanan() != null) {
+            Perjalanan p = f.getPerjalanan();
+            String asal = p.getHalteAsal() != null ? p.getHalteAsal().getNamaHalte() : "?";
+            String tujuan = p.getHalteTujuan() != null ? p.getHalteTujuan().getNamaHalte() : "?";
+            perjalananInfo = asal + " → " + tujuan;
+        }
         return new FeedbackResponse(
                 f.getId(), f.getRating(), f.getKomentar(), f.getTanggal(),
                 f.getStatus() != null ? f.getStatus().name() : null,

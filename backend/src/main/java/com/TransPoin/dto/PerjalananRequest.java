@@ -3,49 +3,40 @@ package com.TransPoin.dto;
 import java.time.LocalDate;
 
 public class PerjalananRequest {
-    private String asal;
-    private String tujuan;
-    private Double jarak;
+    private Long halteAsalId;
+    private Long halteTujuanId;
     private LocalDate tanggal;
     private Long userId;
-    private Long adminId;
+    private String catatan;
+    // buktiPerjalanan dikirim via multipart, bukan JSON
 
-
-    // Generated Constructors, Getters and Setters
+    // Constructors
     public PerjalananRequest() {
     }
 
-    public PerjalananRequest(String asal, String tujuan, Double jarak, LocalDate tanggal, Long userId, Long adminId) {
-        this.asal = asal;
-        this.tujuan = tujuan;
-        this.jarak = jarak;
+    public PerjalananRequest(Long halteAsalId, Long halteTujuanId, LocalDate tanggal, Long userId, String catatan) {
+        this.halteAsalId = halteAsalId;
+        this.halteTujuanId = halteTujuanId;
         this.tanggal = tanggal;
         this.userId = userId;
-        this.adminId = adminId;
+        this.catatan = catatan;
     }
 
-    public String getAsal() {
-        return asal;
+    // Getters and Setters
+    public Long getHalteAsalId() {
+        return halteAsalId;
     }
 
-    public void setAsal(String asal) {
-        this.asal = asal;
+    public void setHalteAsalId(Long halteAsalId) {
+        this.halteAsalId = halteAsalId;
     }
 
-    public String getTujuan() {
-        return tujuan;
+    public Long getHalteTujuanId() {
+        return halteTujuanId;
     }
 
-    public void setTujuan(String tujuan) {
-        this.tujuan = tujuan;
-    }
-
-    public Double getJarak() {
-        return jarak;
-    }
-
-    public void setJarak(Double jarak) {
-        this.jarak = jarak;
+    public void setHalteTujuanId(Long halteTujuanId) {
+        this.halteTujuanId = halteTujuanId;
     }
 
     public LocalDate getTanggal() {
@@ -64,12 +55,11 @@ public class PerjalananRequest {
         this.userId = userId;
     }
 
-    public Long getAdminId() {
-        return adminId;
+    public String getCatatan() {
+        return catatan;
     }
 
-    public void setAdminId(Long adminId) {
-        this.adminId = adminId;
+    public void setCatatan(String catatan) {
+        this.catatan = catatan;
     }
-
 }

@@ -25,12 +25,12 @@ public class Admin {
     @OneToMany(mappedBy = "admin", cascade = CascadeType.ALL)
     private List<Layanan> layananList;
 
-
-    // Generated Constructors, Getters and Setters
+    // Constructors
     public Admin() {
     }
 
-    public Admin(Long id, String nama, String email, String password, List<Perjalanan> perjalananList, List<Layanan> layananList) {
+    public Admin(Long id, String nama, String email, String password,
+                 List<Perjalanan> perjalananList, List<Layanan> layananList) {
         this.id = id;
         this.nama = nama;
         this.email = email;
@@ -39,6 +39,7 @@ public class Admin {
         this.layananList = layananList;
     }
 
+    // Getters and Setters
     public Long getId() {
         return id;
     }
@@ -86,5 +87,4 @@ public class Admin {
     public void setLayananList(List<Layanan> layananList) {
         this.layananList = layananList;
     }
-
 }

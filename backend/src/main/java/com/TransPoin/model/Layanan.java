@@ -1,9 +1,17 @@
 package com.TransPoin.model;
 
-import com.TransPoin.enums.StatusLayanan;
-import jakarta.persistence.*;
-
 import java.time.LocalDate;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
+import jakarta.persistence.Id;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.JoinColumn;
+import com.TransPoin.enums.StatusLayanan;
 
 @Entity
 @Table(name = "layanan")
@@ -28,12 +36,12 @@ public class Layanan {
     @JoinColumn(name = "admin_id")
     private Admin admin;
 
-
     // Generated Constructors, Getters and Setters
     public Layanan() {
     }
 
-    public Layanan(Long id, String jenis, String deskripsi, LocalDate tanggal, StatusLayanan status, User user, Admin admin) {
+    public Layanan(Long id, String jenis, String deskripsi, LocalDate tanggal, StatusLayanan status, User user,
+            Admin admin) {
         this.id = id;
         this.jenis = jenis;
         this.deskripsi = deskripsi;

@@ -1,5 +1,6 @@
 package com.TransPoin.model;
 
+import com.TransPoin.enums.StatusPerjalanan;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
@@ -14,11 +15,14 @@ public class Perjalanan {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String asal;
-    private String tujuan;
     private Double jarak;
     private Integer poinDidapat;
     private LocalDate tanggal;
+    private String buktiPerjalanan;
+    private String catatan;
+
+    @Enumerated(EnumType.STRING)
+    private StatusPerjalanan status = StatusPerjalanan.PENDING;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
@@ -28,49 +32,47 @@ public class Perjalanan {
     @JoinColumn(name = "admin_id")
     private Admin admin;
 
+    @ManyToOne
+    @JoinColumn(name = "halte_asal_id")
+    private Halte halteAsal;
+
+    @ManyToOne
+    @JoinColumn(name = "halte_tujuan_id")
+    private Halte halteTujuan;
+
     @JsonIgnore
     @OneToMany(mappedBy = "perjalanan", cascade = CascadeType.ALL)
     private List<Feedback> feedbackList;
 
-
-    // Generated Constructors, Getters and Setters
+    // Constructors
     public Perjalanan() {
     }
 
-    public Perjalanan(Long id, String asal, String tujuan, Double jarak, Integer poinDidapat, LocalDate tanggal, User user, Admin admin, List<Feedback> feedbackList) {
+    public Perjalanan(Long id, Double jarak, Integer poinDidapat, LocalDate tanggal,
+                      String buktiPerjalanan, String catatan, StatusPerjalanan status,
+                      User user, Admin admin, Halte halteAsal, Halte halteTujuan,
+                      List<Feedback> feedbackList) {
         this.id = id;
-        this.asal = asal;
-        this.tujuan = tujuan;
         this.jarak = jarak;
         this.poinDidapat = poinDidapat;
         this.tanggal = tanggal;
+        this.buktiPerjalanan = buktiPerjalanan;
+        this.catatan = catatan;
+        this.status = status;
         this.user = user;
         this.admin = admin;
+        this.halteAsal = halteAsal;
+        this.halteTujuan = halteTujuan;
         this.feedbackList = feedbackList;
     }
 
+    // Getters and Setters
     public Long getId() {
         return id;
     }
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public String getAsal() {
-        return asal;
-    }
-
-    public void setAsal(String asal) {
-        this.asal = asal;
-    }
-
-    public String getTujuan() {
-        return tujuan;
-    }
-
-    public void setTujuan(String tujuan) {
-        this.tujuan = tujuan;
     }
 
     public Double getJarak() {
@@ -97,6 +99,30 @@ public class Perjalanan {
         this.tanggal = tanggal;
     }
 
+    public String getBuktiPerjalanan() {
+        return buktiPerjalanan;
+    }
+
+    public void setBuktiPerjalanan(String buktiPerjalanan) {
+        this.buktiPerjalanan = buktiPerjalanan;
+    }
+
+    public String getCatatan() {
+        return catatan;
+    }
+
+    public void setCatatan(String catatan) {
+        this.catatan = catatan;
+    }
+
+    public StatusPerjalanan getStatus() {
+        return status;
+    }
+
+    public void setStatus(StatusPerjalanan status) {
+        this.status = status;
+    }
+
     public User getUser() {
         return user;
     }
@@ -113,6 +139,22 @@ public class Perjalanan {
         this.admin = admin;
     }
 
+    public Halte getHalteAsal() {
+        return halteAsal;
+    }
+
+    public void setHalteAsal(Halte halteAsal) {
+        this.halteAsal = halteAsal;
+    }
+
+    public Halte getHalteTujuan() {
+        return halteTujuan;
+    }
+
+    public void setHalteTujuan(Halte halteTujuan) {
+        this.halteTujuan = halteTujuan;
+    }
+
     public List<Feedback> getFeedbackList() {
         return feedbackList;
     }
@@ -120,5 +162,4 @@ public class Perjalanan {
     public void setFeedbackList(List<Feedback> feedbackList) {
         this.feedbackList = feedbackList;
     }
-
 }

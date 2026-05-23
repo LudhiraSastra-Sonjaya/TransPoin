@@ -1,116 +1,95 @@
 package com.TransPoin.dto;
 
+import com.TransPoin.enums.StatusPerjalanan;
 
 import java.time.LocalDate;
 
 public class PerjalananResponse {
     private Long id;
-    private String asal;
-    private String tujuan;
     private Double jarak;
     private Integer poinDidapat;
     private LocalDate tanggal;
+    private String buktiPerjalanan;
+    private String catatan;
+    private StatusPerjalanan status;
     private Long userId;
     private String userName;
     private Long adminId;
     private String adminNama;
+    private Long halteAsalId;
+    private String halteAsalNama;
+    private Long halteTujuanId;
+    private String halteTujuanNama;
 
-
-    // Generated Constructors, Getters and Setters
+    // Constructors
     public PerjalananResponse() {
     }
 
-    public PerjalananResponse(Long id, String asal, String tujuan, Double jarak, Integer poinDidapat, LocalDate tanggal, Long userId, String userName, Long adminId, String adminNama) {
+    public PerjalananResponse(Long id, Double jarak, Integer poinDidapat, LocalDate tanggal,
+                               String buktiPerjalanan, String catatan, StatusPerjalanan status,
+                               Long userId, String userName, Long adminId, String adminNama,
+                               Long halteAsalId, String halteAsalNama,
+                               Long halteTujuanId, String halteTujuanNama) {
         this.id = id;
-        this.asal = asal;
-        this.tujuan = tujuan;
         this.jarak = jarak;
         this.poinDidapat = poinDidapat;
         this.tanggal = tanggal;
+        this.buktiPerjalanan = buktiPerjalanan;
+        this.catatan = catatan;
+        this.status = status;
         this.userId = userId;
         this.userName = userName;
         this.adminId = adminId;
         this.adminNama = adminNama;
+        this.halteAsalId = halteAsalId;
+        this.halteAsalNama = halteAsalNama;
+        this.halteTujuanId = halteTujuanId;
+        this.halteTujuanNama = halteTujuanNama;
     }
 
-    public Long getId() {
-        return id;
-    }
+    // Getters and Setters
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+    public Double getJarak() { return jarak; }
+    public void setJarak(Double jarak) { this.jarak = jarak; }
 
-    public String getAsal() {
-        return asal;
-    }
+    public Integer getPoinDidapat() { return poinDidapat; }
+    public void setPoinDidapat(Integer poinDidapat) { this.poinDidapat = poinDidapat; }
 
-    public void setAsal(String asal) {
-        this.asal = asal;
-    }
+    public LocalDate getTanggal() { return tanggal; }
+    public void setTanggal(LocalDate tanggal) { this.tanggal = tanggal; }
 
-    public String getTujuan() {
-        return tujuan;
-    }
+    public String getBuktiPerjalanan() { return buktiPerjalanan; }
+    public void setBuktiPerjalanan(String buktiPerjalanan) { this.buktiPerjalanan = buktiPerjalanan; }
 
-    public void setTujuan(String tujuan) {
-        this.tujuan = tujuan;
-    }
+    public String getCatatan() { return catatan; }
+    public void setCatatan(String catatan) { this.catatan = catatan; }
 
-    public Double getJarak() {
-        return jarak;
-    }
+    public StatusPerjalanan getStatus() { return status; }
+    public void setStatus(StatusPerjalanan status) { this.status = status; }
 
-    public void setJarak(Double jarak) {
-        this.jarak = jarak;
-    }
+    public Long getUserId() { return userId; }
+    public void setUserId(Long userId) { this.userId = userId; }
 
-    public Integer getPoinDidapat() {
-        return poinDidapat;
-    }
+    public String getUserName() { return userName; }
+    public void setUserName(String userName) { this.userName = userName; }
 
-    public void setPoinDidapat(Integer poinDidapat) {
-        this.poinDidapat = poinDidapat;
-    }
+    public Long getAdminId() { return adminId; }
+    public void setAdminId(Long adminId) { this.adminId = adminId; }
 
-    public LocalDate getTanggal() {
-        return tanggal;
-    }
+    public String getAdminNama() { return adminNama; }
+    public void setAdminNama(String adminNama) { this.adminNama = adminNama; }
 
-    public void setTanggal(LocalDate tanggal) {
-        this.tanggal = tanggal;
-    }
+    public Long getHalteAsalId() { return halteAsalId; }
+    public void setHalteAsalId(Long halteAsalId) { this.halteAsalId = halteAsalId; }
 
-    public Long getUserId() {
-        return userId;
-    }
+    public String getHalteAsalNama() { return halteAsalNama; }
+    public void setHalteAsalNama(String halteAsalNama) { this.halteAsalNama = halteAsalNama; }
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
-    }
+    public Long getHalteTujuanId() { return halteTujuanId; }
+    public void setHalteTujuanId(Long halteTujuanId) { this.halteTujuanId = halteTujuanId; }
 
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
-    public Long getAdminId() {
-        return adminId;
-    }
-
-    public void setAdminId(Long adminId) {
-        this.adminId = adminId;
-    }
-
-    public String getAdminNama() {
-        return adminNama;
-    }
-
-    public void setAdminNama(String adminNama) {
-        this.adminNama = adminNama;
-    }
-
+    public String getHalteTujuanNama() { return halteTujuanNama; }
+    public void setHalteTujuanNama(String halteTujuanNama) { this.halteTujuanNama = halteTujuanNama; }
 }

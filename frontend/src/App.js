@@ -16,6 +16,7 @@ import LayananUser from './pages/user/Layanan';
 // Admin pages
 import AdminDashboard from './pages/admin/Dashboard';
 import KelolaPerjalanan from './pages/admin/KelolaPerjalanan';
+import KelolaHalte from './pages/admin/KelolaHalte';
 import KelolaReward from './pages/admin/KelolaReward';
 import KelolaFeedback from './pages/admin/KelolaFeedback';
 import KelolaLayanan from './pages/admin/KelolaLayanan';
@@ -57,6 +58,7 @@ function AppRoutes() {
       {/* Admin */}
       <Route path="/admin/dashboard" element={<AdminRoute><AdminDashboard /></AdminRoute>} />
       <Route path="/admin/perjalanan" element={<AdminRoute><KelolaPerjalanan /></AdminRoute>} />
+      <Route path="/admin/halte" element={<AdminRoute><KelolaHalte /></AdminRoute>} />
       <Route path="/admin/reward" element={<AdminRoute><KelolaReward /></AdminRoute>} />
       <Route path="/admin/feedback" element={<AdminRoute><KelolaFeedback /></AdminRoute>} />
       <Route path="/admin/layanan" element={<AdminRoute><KelolaLayanan /></AdminRoute>} />

@@ -2,63 +2,89 @@ import React, { useEffect, useState } from 'react';
 import Layout from '../../components/Layout';
 import StatCard from '../../components/StatCard';
 import { getDashboard } from '../../api';
-import { Users, Route, MessageSquare, HeadphonesIcon, Gift, Coins } from 'lucide-react';
+import { Users, Route, Clock, CheckCircle, MapPin, Gift, Coins, ArrowRight } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const AdminDashboard = () => {
-  const [stats, setStats] = useState(null);
+  const [stats, setStats]   = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    getDashboard()
-      .then(res => setStats(res.data))
-      .catch(console.error)
-      .finally(() => setLoading(false));
+    getDashboard().then(r => setStats(r.data)).catch(console.error).finally(() => setLoading(false));
   }, []);
 
   if (loading) return (
-    <Layout title="Dashboard Admin" role="admin">
-      <div className="flex justify-center items-center h-64">
-        <div className="w-10 h-10 border-2 border-primary-200 border-t-primary-600 rounded-full animate-spin" />
-      </div>
+    <Layout title="Dashboard" role="admin">
+      <div className="flex justify-center items-center h-64"><div className="spinner" /></div>
     </Layout>
   );
 
   return (
-    <Layout title="Dashboard Admin" role="admin">
-      <div className="bg-gradient-to-r from-purple-600 to-indigo-700 rounded-2xl p-6 mb-6 text-white">
-        <p className="text-purple-100 text-sm mb-1">Panel Administratif</p>
-        <h2 className="text-2xl font-bold">Ringkasan Sistem TransPoin</h2>
-        <p className="text-purple-200 text-sm mt-1">Data real-time dari seluruh aktivitas platform</p>
+    <Layout title="Dashboard" role="admin">
+      {/* Hero */}
+      <div className="bg-blue-600 rounded-2xl p-5 sm:p-6 mb-5 text-white relative overflow-hidden">
+        <div className="absolute -right-8 -top-8 w-40 h-40 bg-white/5 rounded-full" />
+        <div className="absolute right-8 bottom-0 w-20 h-20 bg-white/5 rounded-full" />
+        <p className="text-blue-200 text-xs mb-1">Panel Administratif</p>
+        <h2 className="text-xl sm:text-2xl font-bold">Ringkasan TransPoin</h2>
+        {stats?.totalPerjalananPending > 0 && (
+          <Link to="/admin/perjalanan"
+            className="mt-3 inline-flex items-center gap-2 bg-white/15 hover:bg-white/25 transition-colors rounded-xl px-4 py-2 text-sm font-medium">
+            <Clock size={14} />
+            {stats.totalPerjalananPending} perjalanan menunggu verifikasi
+            <ArrowRight size={13} />
+          </Link>
+        )}
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
-        <StatCard icon={Users} label="Total Pengguna" value={stats?.totalUsers ?? 0} color="blue" />
-        <StatCard icon={Route} label="Total Perjalanan" value={stats?.totalPerjalanan ?? 0} color="green" />
-        <StatCard icon={Coins} label="Total Poin Terdistribusi" value={stats?.totalPoinDistribusi ?? 0} color="purple" />
-        <StatCard icon={MessageSquare} label="Total Feedback" value={stats?.totalFeedback ?? 0} color="orange" />
-        <StatCard icon={HeadphonesIcon} label="Total Layanan" value={stats?.totalLayanan ?? 0} color="rose" />
-        <StatCard icon={Gift} label="Penukaran Berhasil" value={stats?.totalPenukaranBerhasil ?? 0} color="green" />
+      {/* Stats */}
+      <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-3 mb-5">
+        <StatCard icon={Users}       label="Total Pengguna"   value={stats?.totalUsers ?? 0} />
+        <StatCard icon={MapPin}      label="Total Halte"      value={stats?.totalHalte ?? 0} />
+        <StatCard icon={Clock}       label="Pending"          value={stats?.totalPerjalananPending ?? 0} accent />
+        <StatCard icon={CheckCircle} label="Approved"         value={stats?.totalPerjalananApproved ?? 0} />
+        <StatCard icon={Route}       label="Total Perjalanan" value={stats?.totalPerjalanan ?? 0} />
+        <StatCard icon={Coins}       label="Poin Distribusi"  value={stats?.totalPoinDistribusi ?? 0} />
+        <StatCard icon={Gift}        label="Penukaran"        value={stats?.totalPenukaranBerhasil ?? 0} />
       </div>
 
+      {/* Info */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div className="card">
-          <h3 className="text-base font-semibold text-gray-800 mb-3">Panduan Admin</h3>
-          <ul className="space-y-2 text-sm text-gray-600">
-            <li className="flex items-start gap-2"><span className="text-primary-500 mt-0.5">•</span>Gunakan <strong>Kelola Perjalanan</strong> untuk menginput perjalanan user. Poin otomatis terhitung.</li>
-            <li className="flex items-start gap-2"><span className="text-primary-500 mt-0.5">•</span>Tambah reward baru di <strong>Kelola Reward</strong>.</li>
-            <li className="flex items-start gap-2"><span className="text-primary-500 mt-0.5">•</span>Update status feedback &amp; layanan di halaman masing-masing.</li>
-          </ul>
+          <h3 className="text-sm font-semibold text-slate-700 mb-4">Alur Kerja Admin</h3>
+          <ol className="space-y-3">
+            {[
+              ['Tambah Halte', 'Buat daftar halte agar user bisa memilih rute perjalanan.'],
+              ['User Submit', 'User upload bukti perjalanan. Status awal: PENDING.'],
+              ['Verifikasi', 'ACC perjalanan → poin otomatis masuk ke akun user.'],
+            ].map(([title, desc], i) => (
+              <li key={i} className="flex items-start gap-3">
+                <span className="w-6 h-6 bg-blue-600 text-white rounded-full flex items-center justify-center text-xs font-bold flex-shrink-0 mt-0.5">
+                  {i + 1}
+                </span>
+                <div>
+                  <p className="text-sm font-semibold text-slate-700">{title}</p>
+                  <p className="text-xs text-slate-500 mt-0.5">{desc}</p>
+                </div>
+              </li>
+            ))}
+          </ol>
         </div>
-        <div className="card bg-gradient-to-br from-accent-500/10 to-emerald-50 border-accent-200">
-          <h3 className="text-base font-semibold text-gray-800 mb-3">Formula Poin</h3>
-          <div className="flex items-center justify-center py-4">
+
+        <div className="card bg-blue-50 border-blue-100">
+          <h3 className="text-sm font-semibold text-slate-700 mb-4">Formula Poin</h3>
+          <div className="flex items-center justify-center py-4 gap-6">
             <div className="text-center">
-              <p className="text-4xl font-bold text-accent-500">1 km</p>
-              <p className="text-gray-400 text-xl my-2">=</p>
-              <p className="text-4xl font-bold text-primary-600">1 poin</p>
+              <p className="text-3xl font-bold text-blue-600">1 km</p>
+              <p className="text-xs text-slate-400 mt-1">jarak tempuh</p>
+            </div>
+            <span className="text-2xl text-slate-300 font-light">=</span>
+            <div className="text-center">
+              <p className="text-3xl font-bold text-slate-800">1 poin</p>
+              <p className="text-xs text-slate-400 mt-1">reward poin</p>
             </div>
           </div>
-          <p className="text-xs text-gray-500 text-center">Poin dihitung otomatis saat input perjalanan</p>
+          <p className="text-xs text-slate-400 text-center">Dihitung otomatis saat admin ACC perjalanan</p>
         </div>
       </div>
     </Layout>

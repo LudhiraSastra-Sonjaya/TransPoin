@@ -15,14 +15,32 @@ export const loginUser = (data) => api.post('/users/login', data);
 export const loginAdmin = (data) => api.post('/admin/login', data);
 export const getDashboard = () => api.get('/admin/dashboard');
 
+// ============ HALTE ============
+export const getAllHalte = () => api.get('/halte');
+export const getAllHalteAdmin = () => api.get('/admin/halte');
+export const createHalte = (data) => api.post('/admin/halte', data);
+export const updateHalte = (id, data) => api.put(`/admin/halte/${id}`, data);
+export const deleteHalte = (id) => api.delete(`/admin/halte/${id}`);
+
 // ============ PERJALANAN ============
 export const getAllPerjalanan = () => api.get('/perjalanan');
 export const getPerjalananByUser = (userId) => api.get(`/perjalanan/user/${userId}`);
-export const createPerjalanan = (data) => api.post('/perjalanan', data);
+export const getPerjalananPending = () => api.get('/perjalanan/pending');
+
+// User submit perjalanan dengan bukti (multipart/form-data)
+export const createPerjalanan = (formData) =>
+  axios.post('http://localhost:8080/api/perjalanan', formData, {
+    headers: { 'Content-Type': 'multipart/form-data' },
+  });
+
+// Admin verifikasi perjalanan
+export const verifikasiPerjalanan = (id, data) => api.put(`/perjalanan/${id}/verifikasi`, data);
 
 // ============ REWARD ============
 export const getAllReward = () => api.get('/reward');
 export const createReward = (data) => api.post('/reward', data);
+export const updateReward = (id, data) => api.put(`/reward/${id}`, data);
+export const deleteReward = (id) => api.delete(`/reward/${id}`);
 export const tukarReward = (data) => api.post('/reward/tukar', data);
 export const getAllPenukaran = () => api.get('/reward/penukaran');
 export const getPenukaranByUser = (userId) => api.get(`/reward/penukaran/user/${userId}`);

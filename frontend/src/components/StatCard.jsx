@@ -1,31 +1,16 @@
 import React from 'react';
 
-const StatCard = ({ icon: Icon, label, value, color = 'blue', subtitle }) => {
-  const colors = {
-    blue:   { bg: 'bg-blue-50',   icon: 'bg-blue-100 text-blue-600',   val: 'text-blue-700' },
-    green:  { bg: 'bg-green-50',  icon: 'bg-green-100 text-green-600',  val: 'text-green-700' },
-    purple: { bg: 'bg-purple-50', icon: 'bg-purple-100 text-purple-600', val: 'text-purple-700' },
-    orange: { bg: 'bg-orange-50', icon: 'bg-orange-100 text-orange-600', val: 'text-orange-700' },
-    rose:   { bg: 'bg-rose-50',   icon: 'bg-rose-100 text-rose-600',     val: 'text-rose-700' },
-  };
-  const c = colors[color] || colors.blue;
-
-  return (
-    <div className={`card ${c.bg} border-0 animate-fade-in-up`}>
-      <div className="flex items-center justify-between">
-        <div>
-          <p className="text-sm font-medium text-gray-500 mb-1">{label}</p>
-          <p className={`text-3xl font-bold ${c.val}`}>{value}</p>
-          {subtitle && <p className="text-xs text-gray-400 mt-1">{subtitle}</p>}
-        </div>
-        {Icon && (
-          <div className={`p-3 rounded-2xl ${c.icon}`}>
-            <Icon size={24} />
-          </div>
-        )}
-      </div>
+const StatCard = ({ icon: Icon, label, value, subtitle, accent = false }) => (
+  <div className={`card flex items-center gap-4 ${accent ? 'bg-blue-600 border-blue-600' : ''}`}>
+    <div className={`p-3 rounded-xl flex-shrink-0 ${accent ? 'bg-white/20' : 'bg-blue-50'}`}>
+      <Icon size={20} className={accent ? 'text-white' : 'text-blue-600'} />
     </div>
-  );
-};
+    <div className="min-w-0">
+      <p className={`text-xs font-medium truncate ${accent ? 'text-blue-100' : 'text-slate-500'}`}>{label}</p>
+      <p className={`text-2xl font-bold leading-tight ${accent ? 'text-white' : 'text-slate-800'}`}>{value}</p>
+      {subtitle && <p className={`text-xs mt-0.5 ${accent ? 'text-blue-200' : 'text-slate-400'}`}>{subtitle}</p>}
+    </div>
+  </div>
+);
 
 export default StatCard;

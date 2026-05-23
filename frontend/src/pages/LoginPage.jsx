@@ -5,20 +5,20 @@ import { loginUser, loginAdmin } from '../api';
 import { useAuth } from '../context/AuthContext';
 
 const LoginPage = ({ role }) => {
-  const [email, setEmail] = useState('');
+  const [email, setEmail]       = useState('');
   const [password, setPassword] = useState('');
   const [showPass, setShowPass] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState('');
+  const [loading, setLoading]   = useState(false);
+  const [error, setError]       = useState('');
   const navigate = useNavigate();
   const { loginUser: authLoginUser, loginAdmin: authLoginAdmin } = useAuth();
+  const isAdmin = role === 'admin';
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError('');
-    setLoading(true);
+    setError(''); setLoading(true);
     try {
-      if (role === 'admin') {
+      if (isAdmin) {
         const res = await loginAdmin({ email, password });
         authLoginAdmin(res.data);
         navigate('/admin/dashboard');
@@ -28,121 +28,112 @@ const LoginPage = ({ role }) => {
         navigate('/user/dashboard');
       }
     } catch (err) {
-      setError(err.response?.data || 'Login gagal. Periksa email dan password.');
-    } finally {
-      setLoading(false);
-    }
+      setError(err.response?.data || 'Email atau password salah.');
+    } finally { setLoading(false); }
   };
 
-  const isAdmin = role === 'admin';
-
   return (
-    <div className="min-h-screen bg-gradient-to-br from-primary-600 via-primary-700 to-blue-900 flex items-center justify-center p-4">
-      {/* Background decoration */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute -top-40 -right-40 w-96 h-96 bg-white/5 rounded-full" />
-        <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-white/5 rounded-full" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-white/3 rounded-full" />
-      </div>
-
-      <div className="relative w-full max-w-md animate-fade-in-up">
-        {/* Logo */}
-        <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center w-16 h-16 bg-white rounded-2xl shadow-xl mb-4">
-            <Zap size={28} className="text-primary-600" />
+    <div className="min-h-screen bg-navy flex">
+      {/* Left panel — hidden on mobile */}
+      <div className="hidden lg:flex flex-col justify-between w-[420px] xl:w-[480px] bg-blue-600 p-12 flex-shrink-0">
+        <div className="flex items-center gap-3">
+          <div className="w-10 h-10 bg-white/20 rounded-xl flex items-center justify-center">
+            <Zap size={20} className="text-white" />
           </div>
-          <h1 className="text-3xl font-bold text-white">
-            Trans<span className="text-accent-400">Poin</span>
-          </h1>
-          <p className="text-blue-200 mt-1 text-sm">Sistem Reward Transportasi Umum</p>
+          <span className="text-white font-bold text-xl">TransPoin</span>
         </div>
 
-        {/* Card */}
-        <div className="bg-white rounded-3xl shadow-2xl p-8">
-          <div className="mb-6">
-            <h2 className="text-2xl font-bold text-gray-800">
-              {isAdmin ? 'Login Admin' : 'Masuk ke Akun'}
-            </h2>
-            <p className="text-gray-500 text-sm mt-1">
-              {isAdmin ? 'Panel pengelola TransPoin' : 'Kelola poin perjalanan kamu'}
-            </p>
+        <div>
+          <h2 className="text-4xl font-bold text-white leading-tight mb-4">
+            Kumpulkan poin<br />dari setiap<br />perjalananmu.
+          </h2>
+          <p className="text-blue-200 text-base leading-relaxed">
+            Naik transportasi umum, upload bukti, dan tukarkan poin dengan hadiah menarik.
+          </p>
+        </div>
+
+        <div className="flex gap-3">
+          {['Mudah', 'Cepat', 'Terpercaya'].map(t => (
+            <span key={t} className="text-xs font-semibold text-blue-200 bg-white/10 px-3 py-1.5 rounded-full">
+              {t}
+            </span>
+          ))}
+        </div>
+      </div>
+
+      {/* Right panel — form */}
+      <div className="flex-1 flex items-center justify-center p-6 sm:p-10 bg-surface">
+        <div className="w-full max-w-sm animate-fade-in-up">
+          {/* Mobile logo */}
+          <div className="flex items-center gap-2 mb-8 lg:hidden">
+            <div className="w-9 h-9 bg-blue-600 rounded-xl flex items-center justify-center shadow-blue">
+              <Zap size={18} className="text-white" />
+            </div>
+            <span className="font-bold text-xl text-slate-800">Trans<span className="text-blue-600">Poin</span></span>
           </div>
 
-          {/* Role Switch */}
-          <div className="flex gap-2 mb-6 bg-gray-100 rounded-xl p-1">
+          <h1 className="text-2xl font-bold text-slate-800 mb-1">
+            {isAdmin ? 'Login Admin' : 'Selamat datang'}
+          </h1>
+          <p className="text-slate-500 text-sm mb-7">
+            {isAdmin ? 'Masuk ke panel administrator' : 'Masuk untuk melanjutkan'}
+          </p>
+
+          {/* Role tabs */}
+          <div className="flex gap-1 bg-slate-100 rounded-xl p-1 mb-6">
             <Link to="/login/user"
-              className={`flex-1 text-center py-2 rounded-lg text-sm font-medium transition-all ${!isAdmin ? 'bg-white shadow text-primary-600' : 'text-gray-500 hover:text-gray-700'}`}>
+              className={`flex-1 text-center py-2 rounded-lg text-sm font-semibold transition-all ${!isAdmin ? 'bg-white text-blue-600 shadow-sm' : 'text-slate-500 hover:text-slate-700'}`}>
               User
             </Link>
             <Link to="/login/admin"
-              className={`flex-1 text-center py-2 rounded-lg text-sm font-medium transition-all ${isAdmin ? 'bg-white shadow text-primary-600' : 'text-gray-500 hover:text-gray-700'}`}>
+              className={`flex-1 text-center py-2 rounded-lg text-sm font-semibold transition-all ${isAdmin ? 'bg-white text-blue-600 shadow-sm' : 'text-slate-500 hover:text-slate-700'}`}>
               Admin
             </Link>
           </div>
 
           {error && (
-            <div className="mb-4 p-3 bg-red-50 border border-red-200 rounded-xl text-red-600 text-sm">
+            <div className="mb-5 px-4 py-3 bg-red-50 border border-red-200 rounded-xl text-red-600 text-sm">
               {error}
             </div>
           )}
 
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1.5">Email</label>
+              <label className="label">Email</label>
               <div className="relative">
-                <Mail size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400" />
-                <input
-                  type="email"
-                  value={email}
-                  onChange={e => setEmail(e.target.value)}
-                  className="input-field pl-10"
-                  placeholder="nama@email.com"
-                  required
-                />
+                <Mail size={15} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400" />
+                <input type="email" value={email} onChange={e => setEmail(e.target.value)}
+                  className="input-field pl-10" placeholder="nama@email.com" required />
               </div>
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1.5">Password</label>
+              <label className="label">Password</label>
               <div className="relative">
-                <Lock size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400" />
-                <input
-                  type={showPass ? 'text' : 'password'}
-                  value={password}
+                <Lock size={15} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400" />
+                <input type={showPass ? 'text' : 'password'} value={password}
                   onChange={e => setPassword(e.target.value)}
-                  className="input-field pl-10 pr-10"
-                  placeholder="••••••••"
-                  required
-                />
+                  className="input-field pl-10 pr-10" placeholder="••••••••" required />
                 <button type="button" onClick={() => setShowPass(!showPass)}
-                  className="absolute right-3.5 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600">
-                  {showPass ? <EyeOff size={16} /> : <Eye size={16} />}
+                  className="absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600">
+                  {showPass ? <EyeOff size={15} /> : <Eye size={15} />}
                 </button>
               </div>
             </div>
 
             <button type="submit" disabled={loading}
               className="btn-primary w-full flex items-center justify-center gap-2 mt-2">
-              {loading ? (
-                <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-              ) : (
-                <>Masuk <ArrowRight size={16} /></>
-              )}
+              {loading
+                ? <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                : <><span>Masuk</span><ArrowRight size={15} /></>
+              }
             </button>
           </form>
 
           {!isAdmin && (
-            <p className="text-center text-sm text-gray-500 mt-4">
+            <p className="text-center text-sm text-slate-500 mt-5">
               Belum punya akun?{' '}
-              <Link to="/register" className="text-primary-600 font-semibold hover:underline">
-                Daftar sekarang
-              </Link>
+              <Link to="/register" className="text-blue-600 font-semibold hover:underline">Daftar</Link>
             </p>
-          )}
-
-          {isAdmin && (
-            <div className="mt-4 p-3 bg-blue-50 rounded-xl text-xs text-blue-600">
-              <strong>Default:</strong> admin@transpoin.com / admin123
-            </div>
           )}
         </div>
       </div>

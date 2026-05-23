@@ -16,6 +16,8 @@ public class User {
     private String nama;
     private String email;
     private String password;
+
+    @Column(name = "total_poin", columnDefinition = "INT DEFAULT 0")
     private Integer totalPoin = 0;
 
     @JsonIgnore
@@ -84,7 +86,7 @@ public class User {
     }
 
     public Integer getTotalPoin() {
-        return totalPoin;
+        return totalPoin != null ? totalPoin : 0;
     }
 
     public void setTotalPoin(Integer totalPoin) {

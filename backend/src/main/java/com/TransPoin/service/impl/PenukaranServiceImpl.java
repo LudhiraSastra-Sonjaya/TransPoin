@@ -23,8 +23,8 @@ public class PenukaranServiceImpl implements PenukaranService {
     private final RewardRepository rewardRepository;
 
     public PenukaranServiceImpl(PenukaranRepository penukaranRepository,
-                                 UserRepository userRepository,
-                                 RewardRepository rewardRepository) {
+                            UserRepository userRepository,
+                            RewardRepository rewardRepository) {
         this.penukaranRepository = penukaranRepository;
         this.userRepository = userRepository;
         this.rewardRepository = rewardRepository;
