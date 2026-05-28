@@ -3,12 +3,11 @@ package com.TransPoin.service.impl;
 import com.TransPoin.dto.PerjalananRequest;
 import com.TransPoin.dto.PerjalananResponse;
 import com.TransPoin.dto.VerifikasiRequest;
+import com.TransPoin.enums.Role;
 import com.TransPoin.enums.StatusPerjalanan;
-import com.TransPoin.model.Admin;
 import com.TransPoin.model.Halte;
 import com.TransPoin.model.Perjalanan;
 import com.TransPoin.model.User;
-import com.TransPoin.repository.AdminRepository;
 import com.TransPoin.repository.HalteRepository;
 import com.TransPoin.repository.PerjalananRepository;
 import com.TransPoin.repository.UserRepository;
@@ -31,7 +30,6 @@ public class PerjalananServiceImpl implements PerjalananService {
 
     private final PerjalananRepository perjalananRepository;
     private final UserRepository userRepository;
-    private final AdminRepository adminRepository;
     private final HalteRepository halteRepository;
 
     @Value("${upload.dir:uploads/bukti}")
@@ -39,11 +37,9 @@ public class PerjalananServiceImpl implements PerjalananService {
 
     public PerjalananServiceImpl(PerjalananRepository perjalananRepository,
                                   UserRepository userRepository,
-                                  AdminRepository adminRepository,
                                   HalteRepository halteRepository) {
         this.perjalananRepository = perjalananRepository;
         this.userRepository = userRepository;
-        this.adminRepository = adminRepository;
         this.halteRepository = halteRepository;
     }
 
@@ -118,10 +114,15 @@ public class PerjalananServiceImpl implements PerjalananService {
             throw new RuntimeException("Perjalanan sudah diverifikasi sebelumnya");
         }
 
-        Admin admin = adminRepository.findById(request.getAdminId())
+        // Cari admin (User dengan role ADMIN) berdasarkan adminId
+        User adminUser = userRepository.findById(request.getAdminId())
                 .orElseThrow(() -> new RuntimeException("Admin tidak ditemukan"));
 
-        perjalanan.setAdmin(admin);
+        if (adminUser.getRole() != Role.ADMIN) {
+            throw new RuntimeException("User yang melakukan verifikasi harus memiliki role ADMIN");
+        }
+
+        perjalanan.setApprovedBy(adminUser);
 
         if ("APPROVE".equalsIgnoreCase(request.getAction())) {
             perjalanan.setStatus(StatusPerjalanan.APPROVED);
@@ -201,8 +202,8 @@ public class PerjalananServiceImpl implements PerjalananService {
                 p.getStatus(),
                 p.getUser() != null ? p.getUser().getId() : null,
                 p.getUser() != null ? p.getUser().getNama() : null,
-                p.getAdmin() != null ? p.getAdmin().getId() : null,
-                p.getAdmin() != null ? p.getAdmin().getNama() : null,
+                p.getApprovedBy() != null ? p.getApprovedBy().getId() : null,
+                p.getApprovedBy() != null ? p.getApprovedBy().getNama() : null,
                 p.getHalteAsal() != null ? p.getHalteAsal().getId() : null,
                 p.getHalteAsal() != null ? p.getHalteAsal().getNamaHalte() : null,
                 p.getHalteTujuan() != null ? p.getHalteTujuan().getId() : null,

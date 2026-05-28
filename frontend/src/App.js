@@ -24,12 +24,12 @@ import KelolaLayanan from './pages/admin/KelolaLayanan';
 // Route guards
 const UserRoute = ({ children }) => {
   const { user } = useAuth();
-  return user ? children : <Navigate to="/login/user" replace />;
+  return user ? children : <Navigate to="/login" replace />;
 };
 
 const AdminRoute = ({ children }) => {
   const { admin } = useAuth();
-  return admin ? children : <Navigate to="/login/admin" replace />;
+  return admin ? children : <Navigate to="/login" replace />;
 };
 
 function AppRoutes() {
@@ -40,12 +40,14 @@ function AppRoutes() {
       <Route path="/" element={
         admin ? <Navigate to="/admin/dashboard" /> :
         user ? <Navigate to="/user/dashboard" /> :
-        <Navigate to="/login/user" />
+        <Navigate to="/login" />
       } />
 
-      {/* Auth */}
-      <Route path="/login/user" element={<LoginPage role="user" />} />
-      <Route path="/login/admin" element={<LoginPage role="admin" />} />
+      {/* Auth — satu halaman login */}
+      <Route path="/login" element={<LoginPage />} />
+      {/* Redirect dari URL lama supaya tidak 404 */}
+      <Route path="/login/user"  element={<Navigate to="/login" replace />} />
+      <Route path="/login/admin" element={<Navigate to="/login" replace />} />
       <Route path="/register" element={<RegisterPage />} />
 
       {/* User */}

@@ -1,23 +1,24 @@
 package com.TransPoin.service.impl;
 
 import com.TransPoin.dto.*;
-import com.TransPoin.model.Admin;
-import com.TransPoin.repository.AdminRepository;
+import com.TransPoin.enums.Role;
+import com.TransPoin.model.User;
+import com.TransPoin.repository.UserRepository;
 import com.TransPoin.service.AdminService;
 import org.springframework.stereotype.Service;
 
 @Service
 public class AdminServiceImpl implements AdminService {
 
-    private final AdminRepository adminRepository;
+    private final UserRepository userRepository;
 
-    public AdminServiceImpl(AdminRepository adminRepository) {
-        this.adminRepository = adminRepository;
+    public AdminServiceImpl(UserRepository userRepository) {
+        this.userRepository = userRepository;
     }
 
     @Override
     public AdminResponse login(AdminLoginRequest request) {
-        Admin admin = adminRepository.findByEmail(request.getEmail())
+        User admin = userRepository.findByEmailAndRole(request.getEmail(), Role.ADMIN)
                 .orElseThrow(() -> new RuntimeException("Email admin tidak ditemukan"));
         if (!admin.getPassword().equals(request.getPassword())) {
             throw new RuntimeException("Password salah");
@@ -27,12 +28,12 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public AdminResponse getById(Long id) {
-        Admin admin = adminRepository.findById(id)
+        User admin = userRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Admin tidak ditemukan"));
         return mapToResponse(admin);
     }
 
-    private AdminResponse mapToResponse(Admin admin) {
-        return new AdminResponse(admin.getId(), admin.getNama(), admin.getEmail());
+    private AdminResponse mapToResponse(User admin) {
+        return new AdminResponse(admin.getId(), admin.getNama(), admin.getEmail(), "ADMIN");
     }
 }

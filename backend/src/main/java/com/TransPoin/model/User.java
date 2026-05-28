@@ -1,5 +1,6 @@
 package com.TransPoin.model;
 
+import com.TransPoin.enums.Role;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
@@ -19,6 +20,10 @@ public class User {
 
     @Column(name = "total_poin", columnDefinition = "INT DEFAULT 0")
     private Integer totalPoin = 0;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "role", columnDefinition = "VARCHAR(10) DEFAULT 'USER'")
+    private Role role = Role.USER;
 
     @JsonIgnore
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
@@ -41,12 +46,15 @@ public class User {
     public User() {
     }
 
-    public User(Long id, String nama, String email, String password, Integer totalPoin, List<Perjalanan> perjalananList, List<Penukaran> penukaranList, List<Feedback> feedbackList, List<Layanan> layananList) {
+    public User(Long id, String nama, String email, String password, Integer totalPoin, Role role,
+                List<Perjalanan> perjalananList, List<Penukaran> penukaranList,
+                List<Feedback> feedbackList, List<Layanan> layananList) {
         this.id = id;
         this.nama = nama;
         this.email = email;
         this.password = password;
         this.totalPoin = totalPoin;
+        this.role = role;
         this.perjalananList = perjalananList;
         this.penukaranList = penukaranList;
         this.feedbackList = feedbackList;
@@ -91,6 +99,14 @@ public class User {
 
     public void setTotalPoin(Integer totalPoin) {
         this.totalPoin = totalPoin;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
     }
 
     public List<Perjalanan> getPerjalananList() {

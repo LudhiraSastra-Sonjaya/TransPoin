@@ -68,8 +68,8 @@ public class LayananServiceImpl implements LayananService {
                 l.getStatus() != null ? l.getStatus().name() : null,
                 l.getUser() != null ? l.getUser().getId() : null,
                 l.getUser() != null ? l.getUser().getNama() : null,
-                l.getAdmin() != null ? l.getAdmin().getId() : null,
-                l.getAdmin() != null ? l.getAdmin().getNama() : null
+                l.getHandledBy() != null ? l.getHandledBy().getId() : null,
+                l.getHandledBy() != null ? l.getHandledBy().getNama() : null
         );
     }
 }

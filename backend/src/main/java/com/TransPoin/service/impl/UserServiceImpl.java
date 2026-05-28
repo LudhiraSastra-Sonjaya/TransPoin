@@ -1,6 +1,7 @@
 package com.TransPoin.service.impl;
 
 import com.TransPoin.dto.*;
+import com.TransPoin.enums.Role;
 import com.TransPoin.model.User;
 import com.TransPoin.repository.UserRepository;
 import com.TransPoin.service.UserService;
@@ -20,7 +21,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<UserResponse> getAllUsers() {
-        return userRepository.findAll().stream()
+        // Hanya kembalikan user dengan role USER (bukan admin)
+        return userRepository.findByRole(Role.USER).stream()
                 .map(this::mapToResponse)
                 .collect(Collectors.toList());
     }
@@ -42,13 +44,14 @@ public class UserServiceImpl implements UserService {
         user.setEmail(request.getEmail());
         user.setPassword(request.getPassword());
         user.setTotalPoin(0);
+        user.setRole(Role.USER);
         return mapToResponse(userRepository.save(user));
     }
 
     @Override
     public UserResponse login(UserLoginRequest request) {
-        User user = userRepository.findByEmail(request.getEmail())
-                .orElseThrow(() -> new RuntimeException("Email tidak ditemukan"));
+        User user = userRepository.findByEmailAndRole(request.getEmail(), Role.USER)
+                .orElseThrow(() -> new RuntimeException("Email tidak ditemukan atau bukan akun user"));
         if (!user.getPassword().equals(request.getPassword())) {
             throw new RuntimeException("Password salah");
         }
@@ -56,6 +59,12 @@ public class UserServiceImpl implements UserService {
     }
 
     private UserResponse mapToResponse(User user) {
-        return new UserResponse(user.getId(), user.getNama(), user.getEmail(), user.getTotalPoin());
+        return new UserResponse(
+                user.getId(),
+                user.getNama(),
+                user.getEmail(),
+                user.getTotalPoin(),
+                user.getRole() != null ? user.getRole().name() : "USER"
+        );
     }
 }

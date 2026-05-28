@@ -1,6 +1,7 @@
 package com.TransPoin.service.impl;
 
 import com.TransPoin.dto.DashboardResponse;
+import com.TransPoin.enums.Role;
 import com.TransPoin.enums.StatusPenukaran;
 import com.TransPoin.enums.StatusPerjalanan;
 import com.TransPoin.model.Penukaran;
@@ -36,7 +37,7 @@ public class DashboardServiceImpl implements DashboardService {
 
     @Override
     public DashboardResponse getDashboard() {
-        long totalUsers = userRepository.count();
+        long totalUsers = userRepository.countByRole(Role.USER);
         long totalPerjalanan = perjalananRepository.count();
         long totalPerjalananPending = perjalananRepository.countByStatus(StatusPerjalanan.PENDING);
         long totalPerjalananApproved = perjalananRepository.countByStatus(StatusPerjalanan.APPROVED);

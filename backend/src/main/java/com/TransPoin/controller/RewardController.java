@@ -35,6 +35,25 @@ public class RewardController {
         }
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<?> updateReward(@PathVariable Long id, @RequestBody RewardRequest request) {
+        try {
+            return ResponseEntity.ok(rewardService.updateReward(id, request));
+        } catch (RuntimeException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteReward(@PathVariable Long id) {
+        try {
+            rewardService.deleteReward(id);
+            return ResponseEntity.ok("Reward berhasil dihapus");
+        } catch (RuntimeException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
     @PostMapping("/tukar")
     public ResponseEntity<?> tukar(@RequestBody TukarRewardRequest request) {
         try {

@@ -32,23 +32,24 @@ public class Layanan {
     @JoinColumn(name = "user_id")
     private User user;
 
+    /** Admin yang menangani — kolom DB tetap admin_id */
     @ManyToOne
     @JoinColumn(name = "admin_id")
-    private Admin admin;
+    private User handledBy;
 
     // Generated Constructors, Getters and Setters
     public Layanan() {
     }
 
     public Layanan(Long id, String jenis, String deskripsi, LocalDate tanggal, StatusLayanan status, User user,
-            Admin admin) {
+            User handledBy) {
         this.id = id;
         this.jenis = jenis;
         this.deskripsi = deskripsi;
         this.tanggal = tanggal;
         this.status = status;
         this.user = user;
-        this.admin = admin;
+        this.handledBy = handledBy;
     }
 
     public Long getId() {
@@ -99,12 +100,12 @@ public class Layanan {
         this.user = user;
     }
 
-    public Admin getAdmin() {
-        return admin;
+    public User getHandledBy() {
+        return handledBy;
     }
 
-    public void setAdmin(Admin admin) {
-        this.admin = admin;
+    public void setHandledBy(User handledBy) {
+        this.handledBy = handledBy;
     }
 
 }

@@ -5,6 +5,7 @@ public class AdminResponse {
     private Long id;
     private String nama;
     private String email;
+    private String role;
 
 
     // Generated Constructors, Getters and Setters
@@ -15,6 +16,14 @@ public class AdminResponse {
         this.id = id;
         this.nama = nama;
         this.email = email;
+        this.role = "ADMIN";
+    }
+
+    public AdminResponse(Long id, String nama, String email, String role) {
+        this.id = id;
+        this.nama = nama;
+        this.email = email;
+        this.role = role;
     }
 
     public Long getId() {
@@ -39,6 +48,14 @@ public class AdminResponse {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 
 }

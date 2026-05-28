@@ -131,7 +131,7 @@ const PerjalananUser = () => {
               <select value={form.halteAsalId} onChange={e => setForm({ ...form, halteAsalId: e.target.value })}
                 className="input-field" required>
                 <option value="">Pilih halte</option>
-                {halteList.map(h => <option key={h.id} value={h.id}>{h.namaHalte}</option>)}
+                {halteList.filter(h => String(h.id) !== String(form.halteTujuanId)).map(h => <option key={h.id} value={h.id}>{h.namaHalte}</option>)}
               </select>
             </div>
             <div>
@@ -139,7 +139,7 @@ const PerjalananUser = () => {
               <select value={form.halteTujuanId} onChange={e => setForm({ ...form, halteTujuanId: e.target.value })}
                 className="input-field" required>
                 <option value="">Pilih halte</option>
-                {halteList.map(h => <option key={h.id} value={h.id}>{h.namaHalte}</option>)}
+                {halteList.filter(h => String(h.id) !== String(form.halteAsalId)).map(h => <option key={h.id} value={h.id}>{h.namaHalte}</option>)}
               </select>
             </div>
           </div>

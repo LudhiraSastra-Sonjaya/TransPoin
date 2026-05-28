@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Zap, User, Mail, Lock, Eye, EyeOff, ArrowRight } from 'lucide-react';
+import { User, Mail, Lock, Eye, EyeOff, ArrowRight } from 'lucide-react';
+import logoBiru from '../assets/Logo Biru.png';
 import { registerUser } from '../api';
 import { useAuth } from '../context/AuthContext';
 
@@ -33,10 +34,7 @@ const RegisterPage = () => {
       <div className="w-full max-w-sm animate-fade-in-up">
         {/* Logo */}
         <div className="flex items-center gap-2 mb-8">
-          <div className="w-9 h-9 bg-blue-600 rounded-xl flex items-center justify-center shadow-blue">
-            <Zap size={18} className="text-white" />
-          </div>
-          <span className="font-bold text-xl text-slate-800">Trans<span className="text-blue-600">Poin</span></span>
+          <img src={logoBiru} alt="TransPoin" className="h-7 w-auto object-contain" />
         </div>
 
         <h1 className="text-2xl font-bold text-slate-800 mb-1">Buat akun baru</h1>
@@ -95,7 +93,7 @@ const RegisterPage = () => {
 
         <p className="text-center text-sm text-slate-500 mt-5">
           Sudah punya akun?{' '}
-          <Link to="/login/user" className="text-blue-600 font-semibold hover:underline">Masuk</Link>
+          <Link to="/login" className="text-blue-600 font-semibold hover:underline">Masuk</Link>
         </p>
       </div>
     </div>

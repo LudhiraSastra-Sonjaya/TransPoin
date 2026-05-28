@@ -6,17 +6,19 @@ public class UserResponse {
     private String nama;
     private String email;
     private Integer totalPoin;
+    private String role;
 
 
     // Generated Constructors, Getters and Setters
     public UserResponse() {
     }
 
-    public UserResponse(Long id, String nama, String email, Integer totalPoin) {
+    public UserResponse(Long id, String nama, String email, Integer totalPoin, String role) {
         this.id = id;
         this.nama = nama;
         this.email = email;
         this.totalPoin = totalPoin;
+        this.role = role;
     }
 
     public Long getId() {
@@ -49,6 +51,14 @@ public class UserResponse {
 
     public void setTotalPoin(Integer totalPoin) {
         this.totalPoin = totalPoin;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 
 }

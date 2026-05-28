@@ -34,6 +34,23 @@ public class RewardServiceImpl implements RewardService {
         return mapToResponse(rewardRepository.save(reward));
     }
 
+    @Override
+    public RewardResponse updateReward(Long id, RewardRequest request) {
+        Reward reward = rewardRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Reward tidak ditemukan dengan id: " + id));
+        reward.setNama(request.getNama());
+        reward.setPoinDibutuhkan(request.getPoinDibutuhkan());
+        reward.setDeskripsi(request.getDeskripsi());
+        return mapToResponse(rewardRepository.save(reward));
+    }
+
+    @Override
+    public void deleteReward(Long id) {
+        Reward reward = rewardRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Reward tidak ditemukan dengan id: " + id));
+        rewardRepository.delete(reward);
+    }
+
     private RewardResponse mapToResponse(Reward r) {
         return new RewardResponse(r.getId(), r.getNama(), r.getPoinDibutuhkan(), r.getDeskripsi());
     }

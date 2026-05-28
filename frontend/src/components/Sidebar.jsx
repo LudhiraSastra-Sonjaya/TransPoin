@@ -3,9 +3,11 @@ import { NavLink, useNavigate } from 'react-router-dom';
 import {
   LayoutDashboard, Gift, MessageSquare, HeadphonesIcon,
   Route, ShieldCheck, Users, LogOut, ChevronLeft,
-  ChevronRight, MapPin, Zap, Menu, X
+  ChevronRight, MapPin, Menu, X
 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
+import logoPutih from '../assets/Logo Putih.png';
+import logoKotak from '../assets/Logo Kotak.png';
 
 const userNav = [
   { to: '/user/dashboard',  icon: LayoutDashboard, label: 'Dashboard' },
@@ -32,8 +34,8 @@ export const MobileSidebar = ({ role, open, onClose }) => {
   const currentUser = role === 'admin' ? admin : user;
 
   const handleLogout = () => {
-    if (role === 'admin') { logoutAdmin(); navigate('/login/admin'); }
-    else { logoutUser(); navigate('/login/user'); }
+    if (role === 'admin') { logoutAdmin(); navigate('/login'); }
+    else { logoutUser(); navigate('/login'); }
   };
 
   if (!open) return null;
@@ -66,8 +68,8 @@ const Sidebar = ({ role }) => {
   const currentUser = role === 'admin' ? admin : user;
 
   const handleLogout = () => {
-    if (role === 'admin') { logoutAdmin(); navigate('/login/admin'); }
-    else { logoutUser(); navigate('/login/user'); }
+    if (role === 'admin') { logoutAdmin(); navigate('/login'); }
+    else { logoutUser(); navigate('/login'); }
   };
 
   return (
@@ -90,14 +92,11 @@ const Sidebar = ({ role }) => {
 const SidebarContent = ({ navItems, currentUser, role, collapsed, handleLogout, onToggle, onNavClick }) => (
   <>
     {/* Logo */}
-    <div className={`flex items-center gap-3 px-4 py-5 border-b border-white/10 ${collapsed ? 'justify-center' : ''}`}>
-      <div className="w-9 h-9 bg-blue-600 rounded-xl flex items-center justify-center flex-shrink-0 shadow-blue">
-        <Zap size={18} className="text-white" />
-      </div>
-      {!collapsed && (
-        <span className="text-white font-bold text-lg tracking-tight">
-          Trans<span className="text-blue-400">Poin</span>
-        </span>
+    <div className={`flex items-center px-4 py-5 border-b border-white/10 ${collapsed ? 'justify-center' : ''}`}>
+      {collapsed ? (
+        <img src={logoKotak} alt="TransPoin" className="h-8 w-8 object-contain rounded-lg" />
+      ) : (
+        <img src={logoPutih} alt="TransPoin" className="h-7 w-auto object-contain" />
       )}
     </div>
 

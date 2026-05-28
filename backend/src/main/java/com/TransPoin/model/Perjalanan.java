@@ -28,9 +28,10 @@ public class Perjalanan {
     @JoinColumn(name = "user_id")
     private User user;
 
+    /** Admin yang memverifikasi — disimpan di kolom admin_id (tetap sama agar tidak perlu migrasi kolom) */
     @ManyToOne
     @JoinColumn(name = "admin_id")
-    private Admin admin;
+    private User approvedBy;
 
     @ManyToOne
     @JoinColumn(name = "halte_asal_id")
@@ -50,7 +51,7 @@ public class Perjalanan {
 
     public Perjalanan(Long id, Double jarak, Integer poinDidapat, LocalDate tanggal,
                       String buktiPerjalanan, String catatan, StatusPerjalanan status,
-                      User user, Admin admin, Halte halteAsal, Halte halteTujuan,
+                      User user, User approvedBy, Halte halteAsal, Halte halteTujuan,
                       List<Feedback> feedbackList) {
         this.id = id;
         this.jarak = jarak;
@@ -60,7 +61,7 @@ public class Perjalanan {
         this.catatan = catatan;
         this.status = status;
         this.user = user;
-        this.admin = admin;
+        this.approvedBy = approvedBy;
         this.halteAsal = halteAsal;
         this.halteTujuan = halteTujuan;
         this.feedbackList = feedbackList;
@@ -131,12 +132,12 @@ public class Perjalanan {
         this.user = user;
     }
 
-    public Admin getAdmin() {
-        return admin;
+    public User getApprovedBy() {
+        return approvedBy;
     }
 
-    public void setAdmin(Admin admin) {
-        this.admin = admin;
+    public void setApprovedBy(User approvedBy) {
+        this.approvedBy = approvedBy;
     }
 
     public Halte getHalteAsal() {
