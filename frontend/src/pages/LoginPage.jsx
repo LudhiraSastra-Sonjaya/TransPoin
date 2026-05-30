@@ -45,7 +45,7 @@ const LoginPage = () => {
     <div className="min-h-screen flex login-bg">
 
       {/* ── Left panel ── */}
-      <div className="hidden lg:flex flex-col justify-between w-[440px] xl:w-[500px] p-12 flex-shrink-0 relative overflow-hidden">
+      <div className="hidden bg-blue-600  lg:flex flex-col justify-between w-[440px] xl:w-[500px] p-12 flex-shrink-0 relative overflow-hidden">
 
         {/* Animated blobs */}
         <div className="absolute top-10 left-10 w-72 h-72 rounded-full opacity-20 animate-blob"
@@ -68,7 +68,7 @@ const LoginPage = () => {
         <div className="relative z-10 space-y-6">
           <div>
             <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-semibold mb-5"
-              style={{ background: 'rgba(37,99,235,0.25)', color: '#93c5fd', border: '1px solid rgba(37,99,235,0.3)' }}>
+              style={{ background: 'rgba(255,255,255,0.25)', color: '#ffff', border: '1px solid rgba(37,99,235,0.3)' }}>
               <Zap size={11} /> Reward otomatis setiap perjalanan
             </div>
             <h2 className="text-4xl xl:text-5xl font-bold text-white leading-tight mb-4">
@@ -77,7 +77,7 @@ const LoginPage = () => {
                 kumpulkan poin.
               </span>
             </h2>
-            <p className="text-base leading-relaxed" style={{ color: 'rgba(255,255,255,0.55)' }}>
+            <p className="text-base leading-relaxed" style={{ color: 'rgba(255,255,255,0.65)' }}>
               TransPoin mengubah setiap perjalanan transportasi umum menjadi reward yang nyata untuk kamu.
             </p>
           </div>
@@ -87,8 +87,8 @@ const LoginPage = () => {
             {features.map(({ icon: Icon, label, desc }) => (
               <div key={label} className="flex items-start gap-3 p-3 rounded-xl transition-all duration-200 hover:bg-white/5">
                 <div className="w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0"
-                  style={{ background: 'rgba(37,99,235,0.25)', border: '1px solid rgba(37,99,235,0.3)' }}>
-                  <Icon size={15} className="text-blue-400" />
+                  style={{ background: 'rgba(255,255,255,0.25)', border: '1px solid rgba(37,99,235,0.3)' }}>
+                  <Icon size={15} className="text-white"/>
                 </div>
                 <div>
                   <p className="text-sm font-semibold text-white">{label}</p>
@@ -129,7 +129,7 @@ const LoginPage = () => {
           {/* Form card */}
           <div className="login-form-glass p-8 rounded-3xl">
             <div className="mb-6">
-              <h1 className="text-2xl font-bold text-slate-800">Selamat datang 👋</h1>
+              <h1 className="text-2xl font-bold text-slate-800">Selamat datang</h1>
               <p className="text-slate-500 text-sm mt-1">Masuk untuk melanjutkan ke TransPoin</p>
             </div>
 

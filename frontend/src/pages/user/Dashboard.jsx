@@ -56,9 +56,9 @@ const UserDashboard = () => {
               style={{ background: 'rgba(255,255,255,0.15)', color: 'rgba(255,255,255,0.9)' }}>
               <Zap size={10} /> Member Aktif
             </div>
-            <p className="text-blue-100 text-sm mb-1">Selamat datang 👋</p>
-            <h2 className="text-xl sm:text-2xl font-bold">{profile?.nama}</h2>
-            <p className="text-blue-300 text-xs mt-0.5">{profile?.email}</p>
+            <p className="text-blue-100 text-sm">Selamat datang</p>
+            <h2 className="text-[1.5rem] sm:text-[3rem] font-bold">{profile?.nama}</h2>
+            {/* <p className="text-blue-300 text-xs mt-0.5">{profile?.email}</p> */}
           </div>
 
           {/* Poin display */}

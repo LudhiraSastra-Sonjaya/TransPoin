@@ -1,5 +1,5 @@
 import React from 'react';
-import { Menu, Coins, Bell } from 'lucide-react';
+import { Menu, Coins, Bell, User } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 
 const avatarGradients = [
@@ -58,7 +58,7 @@ const Navbar = ({ title, role, onMenuClick }) => {
           </div>
         )}
 
-        {/* Notification bell */}
+        {/* Notification bell 
         <button
           className="relative p-2 rounded-xl text-slate-500 hover:text-blue-600 transition-all duration-150"
           style={{ background: 'rgba(37,99,235,0.06)' }}
@@ -67,18 +67,19 @@ const Navbar = ({ title, role, onMenuClick }) => {
           <Bell size={17} />
           <span className="absolute top-1.5 right-1.5 w-1.5 h-1.5 rounded-full bg-blue-600" />
         </button>
+        */}
 
         {/* Avatar */}
         <div className="flex items-center gap-2.5">
+          <div className="hidden sm:flex sm:flex-col sm:items-end">
+            <p className="text-sm font-semibold text-slate-800 leading-none">{currentUser?.nama}</p>
+            <p className="text-[11px] text-slate-400 text-right">{role === 'admin' ? 'Admin' : 'Member'}</p>
+          </div>
           <div
-            className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl flex items-center justify-center text-white font-bold text-sm flex-shrink-0 ring-2 ring-white"
+            className="w-8 h-8 sm:w-9 sm:h-9 rounded-full flex items-center justify-center text-white flex-shrink-0 ring-2 ring-white"
             style={{ background: gradient, boxShadow: '0 4px 12px rgba(37,99,235,0.35)' }}
           >
-            {currentUser?.nama?.charAt(0)?.toUpperCase() || '?'}
-          </div>
-          <div className="hidden sm:block">
-            <p className="text-sm font-semibold text-slate-800 leading-none">{currentUser?.nama}</p>
-            <p className="text-[11px] text-slate-400 mt-0.5">{role === 'admin' ? 'Admin' : 'Member'}</p>
+            <User className="w-5 h-5" />
           </div>
         </div>
       </div>

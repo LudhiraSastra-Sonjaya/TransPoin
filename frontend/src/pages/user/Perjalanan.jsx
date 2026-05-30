@@ -76,7 +76,7 @@ const PerjalananUser = () => {
         {[
           { icon: Route,       label: 'Total',     value: data.length,    color: 'blue'    },
           { icon: CheckCircle, label: 'Disetujui', value: totalApproved,  color: 'emerald' },
-          { icon: Coins,       label: 'Poin',      value: totalPoin,      color: 'blue',   accent: true },
+          { icon: Coins,       label: 'Total Poin Didapat',      value: totalPoin,      color: 'blue',   accent: true },
         ].map(({ icon: Icon, label, value, color, accent }) => (
           <div key={label}
             className="rounded-2xl p-4 flex flex-col gap-1.5 transition-all duration-200 hover:-translate-y-0.5"
