@@ -7,11 +7,8 @@ import java.time.LocalDate;
 
 @Entity
 @Table(name = "penukaran")
-public class Penukaran {
+public class Penukaran extends BaseEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
 
     private LocalDate tanggal;
 
@@ -32,20 +29,18 @@ public class Penukaran {
     }
 
     public Penukaran(Long id, LocalDate tanggal, StatusPenukaran status, User user, Reward reward) {
-        this.id = id;
+        super(id);
         this.tanggal = tanggal;
         this.status = status;
         this.user = user;
         this.reward = reward;
     }
 
-    public Long getId() {
-        return id;
+    @Override
+    public String getEntityName() {
+        return "Penukaran";
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public LocalDate getTanggal() {
         return tanggal;

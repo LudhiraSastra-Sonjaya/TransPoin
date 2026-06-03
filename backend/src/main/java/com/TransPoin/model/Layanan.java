@@ -15,11 +15,8 @@ import com.TransPoin.enums.StatusLayanan;
 
 @Entity
 @Table(name = "layanan")
-public class Layanan {
+public class Layanan extends BaseEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
 
     private String jenis;
     private String deskripsi;
@@ -43,7 +40,7 @@ public class Layanan {
 
     public Layanan(Long id, String jenis, String deskripsi, LocalDate tanggal, StatusLayanan status, User user,
             User handledBy) {
-        this.id = id;
+        super(id);
         this.jenis = jenis;
         this.deskripsi = deskripsi;
         this.tanggal = tanggal;
@@ -52,13 +49,11 @@ public class Layanan {
         this.handledBy = handledBy;
     }
 
-    public Long getId() {
-        return id;
+    @Override
+    public String getEntityName() {
+        return "Layanan";
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getJenis() {
         return jenis;

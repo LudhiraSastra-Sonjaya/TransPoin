@@ -8,11 +8,8 @@ import java.util.List;
 
 @Entity
 @Table(name = "users")
-public class User {
+public class User extends BaseEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
 
     private String nama;
     private String email;
@@ -49,7 +46,7 @@ public class User {
     public User(Long id, String nama, String email, String password, Integer totalPoin, Role role,
                 List<Perjalanan> perjalananList, List<Penukaran> penukaranList,
                 List<Feedback> feedbackList, List<Layanan> layananList) {
-        this.id = id;
+        super(id);
         this.nama = nama;
         this.email = email;
         this.password = password;
@@ -61,13 +58,11 @@ public class User {
         this.layananList = layananList;
     }
 
-    public Long getId() {
-        return id;
+    @Override
+    public String getEntityName() {
+        return "User";
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getNama() {
         return nama;

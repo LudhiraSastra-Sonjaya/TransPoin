@@ -7,11 +7,8 @@ import java.time.LocalDate;
 
 @Entity
 @Table(name = "feedback")
-public class Feedback {
+public class Feedback extends BaseEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
 
     private Integer rating;
     private String komentar;
@@ -34,7 +31,7 @@ public class Feedback {
     }
 
     public Feedback(Long id, Integer rating, String komentar, LocalDate tanggal, StatusFeedback status, User user, Perjalanan perjalanan) {
-        this.id = id;
+        super(id);
         this.rating = rating;
         this.komentar = komentar;
         this.tanggal = tanggal;
@@ -43,13 +40,11 @@ public class Feedback {
         this.perjalanan = perjalanan;
     }
 
-    public Long getId() {
-        return id;
+    @Override
+    public String getEntityName() {
+        return "Feedback";
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public Integer getRating() {
         return rating;

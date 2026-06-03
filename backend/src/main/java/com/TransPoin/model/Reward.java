@@ -7,11 +7,8 @@ import java.util.List;
 
 @Entity
 @Table(name = "reward")
-public class Reward {
+public class Reward extends BaseEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
 
     private String nama;
     private Integer poinDibutuhkan;
@@ -27,20 +24,18 @@ public class Reward {
     }
 
     public Reward(Long id, String nama, Integer poinDibutuhkan, String deskripsi, List<Penukaran> penukaranList) {
-        this.id = id;
+        super(id);
         this.nama = nama;
         this.poinDibutuhkan = poinDibutuhkan;
         this.deskripsi = deskripsi;
         this.penukaranList = penukaranList;
     }
 
-    public Long getId() {
-        return id;
+    @Override
+    public String getEntityName() {
+        return "Reward";
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getNama() {
         return nama;

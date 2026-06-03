@@ -9,11 +9,8 @@ import java.util.List;
 
 @Entity
 @Table(name = "perjalanan")
-public class Perjalanan {
+public class Perjalanan extends BaseEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
 
     private Double jarak;
     private Integer poinDidapat;
@@ -53,7 +50,7 @@ public class Perjalanan {
                       String buktiPerjalanan, String catatan, StatusPerjalanan status,
                       User user, User approvedBy, Halte halteAsal, Halte halteTujuan,
                       List<Feedback> feedbackList) {
-        this.id = id;
+        super(id);
         this.jarak = jarak;
         this.poinDidapat = poinDidapat;
         this.tanggal = tanggal;
@@ -67,14 +64,11 @@ public class Perjalanan {
         this.feedbackList = feedbackList;
     }
 
-    // Getters and Setters
-    public Long getId() {
-        return id;
+    @Override
+    public String getEntityName() {
+        return "Perjalanan";
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public Double getJarak() {
         return jarak;

@@ -4,11 +4,8 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(name = "halte")
-public class Halte {
+public class Halte extends BaseEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
 
     private String namaHalte;
     private String alamat;
@@ -21,7 +18,7 @@ public class Halte {
     }
 
     public Halte(Long id, String namaHalte, String alamat, Double latitude, Double longitude, Boolean aktif) {
-        this.id = id;
+        super(id);
         this.namaHalte = namaHalte;
         this.alamat = alamat;
         this.latitude = latitude;
@@ -29,15 +26,12 @@ public class Halte {
         this.aktif = aktif;
     }
 
+    @Override
+    public String getEntityName() {
+        return "Halte";
+    }
+
     // Getters and Setters
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
     public String getNamaHalte() {
         return namaHalte;
     }
