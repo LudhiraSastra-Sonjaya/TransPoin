@@ -29,7 +29,7 @@ export const getPerjalananPending = () => api.get('/perjalanan/pending');
 
 // User submit perjalanan dengan bukti (multipart/form-data)
 export const createPerjalanan = (formData) =>
-  axios.post('http://localhost:8080/api/perjalanan', formData, {
+  api.post('/perjalanan', formData, {
     headers: { 'Content-Type': 'multipart/form-data' },
   });
 
