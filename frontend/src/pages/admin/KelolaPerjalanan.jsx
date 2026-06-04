@@ -40,6 +40,16 @@ const KelolaPerjalanan = () => {
     } finally { setSubmitting(false); }
   };
 
+  const getBuktiUrl = (path) => {
+    if (!path) return "#";
+
+    if (path.startsWith("http")) {
+      return path;
+    }
+
+    return `${window.location.origin}/${path}`;
+  };
+
   const pendingCount = data.filter(p => p.status === 'PENDING').length;
 
   return (
@@ -146,11 +156,21 @@ const KelolaPerjalanan = () => {
               <p className="text-xs font-semibold text-slate-500 uppercase tracking-wide mb-2">Bukti Perjalanan</p>
               {selected.buktiPerjalanan ? (
                 <div className="rounded-xl overflow-hidden border border-slate-100">
-                  <img src={`http://localhost:8080/${selected.buktiPerjalanan}`} alt="Bukti"
+                  <img
+                    src={getBuktiUrl(selected.buktiPerjalanan)}
+                    alt="Bukti"
                     className="w-full max-h-56 object-contain bg-slate-50"
-                    onError={e => { e.target.style.display = 'none'; }} />
-                  <a href={`http://localhost:8080/${selected.buktiPerjalanan}`} target="_blank" rel="noreferrer"
-                    className="flex items-center justify-center gap-1.5 text-xs text-blue-600 hover:underline py-2 bg-slate-50">
+                    onError={(e) => {
+                      e.target.style.display = "none";
+                    }}
+                  />
+
+                  <a
+                    href={getBuktiUrl(selected.buktiPerjalanan)}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="flex items-center justify-center gap-1.5 text-xs text-blue-600 hover:underline py-2 bg-slate-50"
+                  >
                     <ExternalLink size={11} /> Buka di tab baru
                   </a>
                 </div>
