@@ -64,6 +64,14 @@ const PerjalananUser = () => {
     finally { setSubmitting(false); }
   };
 
+  const getBuktiUrl = (path) => {
+    if (!path) return "#";
+
+    if (path.startsWith("http")) return path;
+
+    return `${window.location.origin}/${path}`;
+  };
+
   const totalApproved = data.filter(p => p.status === 'APPROVED').length;
   const totalPoin     = data.filter(p => p.status === 'APPROVED').reduce((s, p) => s + (p.poinDidapat || 0), 0);
   const totalPending  = data.filter(p => p.status === 'PENDING').length;
@@ -146,8 +154,12 @@ const PerjalananUser = () => {
                   )}
                   <Badge variant={statusVariant[t.status]}>{statusLabel[t.status]}</Badge>
                   {t.buktiPerjalanan && (
-                    <a href={`http://localhost:8080/${t.buktiPerjalanan}`} target="_blank" rel="noreferrer"
-                      className="p-1.5 rounded-lg text-slate-400 hover:text-blue-600 hover:bg-blue-50 transition-all duration-150">
+                    <a
+                      href={getBuktiUrl(t.buktiPerjalanan)}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="p-1.5 rounded-lg text-slate-400 hover:text-blue-600 hover:bg-blue-50 transition-all duration-150"
+                    >
                       <ExternalLink size={13} />
                     </a>
                   )}

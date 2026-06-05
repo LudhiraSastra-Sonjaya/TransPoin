@@ -1,16 +1,16 @@
 {
   "files": {
     "main.css": "/static/css/main.4295912f.css",
-    "main.js": "/static/js/main.71788a88.js",
+    "main.js": "/static/js/main.0bc6b2a9.js",
     "static/media/Logo Biru.png": "/static/media/Logo Biru.3950aab55d5803474e25.png",
     "static/media/Logo Putih.png": "/static/media/Logo Putih.905e008c95aefc1a32b0.png",
     "static/media/Logo Kotak.png": "/static/media/Logo Kotak.5c2a8a68a6d256478f4a.png",
     "index.html": "/index.html",
     "main.4295912f.css.map": "/static/css/main.4295912f.css.map",
-    "main.71788a88.js.map": "/static/js/main.71788a88.js.map"
+    "main.0bc6b2a9.js.map": "/static/js/main.0bc6b2a9.js.map"
   },
   "entrypoints": [
     "static/css/main.4295912f.css",
-    "static/js/main.71788a88.js"
+    "static/js/main.0bc6b2a9.js"
   ]
 }
